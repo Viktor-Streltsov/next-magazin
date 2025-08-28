@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-foreground: oklch(0.041 0.143 20);
@@ -8,7 +8,7 @@
   --color-popover-foreground: oklch(0.041 0.143 20);
   --color-primary: oklch(0.5 1 22);
   --color-primary-foreground: oklch(0.978 0.091 60);
-  --color-secondary: oklch(0.98 1 32);
+  --color-secondary: oklch(0.98 0.1 32);
   --color-secondary-foreground: oklch(0.1 0.098 24);
   --color-muted: oklch(0.959 0.048 60);
   --color-muted-foreground: oklch(0.447 0.053 25);
@@ -19,14 +19,13 @@
   --color-border: oklch(0.9 0.059 20);
   --color-input: oklch(0.9 0 0);
   --color-ring: oklch(0.531 0.95 24.6);
-  
+
   --radius: 1rem;
 }
 
 * {
   font-family: var(--font-nunito), sans-serif;
 }
-
 
 html {
   scroll-behavior: smooth;
