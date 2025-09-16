@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 // import { useSet } from 'react-use';
 import { FilterCheckbox, FilterChecboxProps } from './filter-checkbox';
-import { Input } from '../ui';
+import { Input, Skeleton } from '../ui';
 
 type Item = FilterChecboxProps;
 
@@ -14,8 +14,11 @@ interface CheckboxFiltersGroupProps {
   limit?: number;
   searchInputPlaceholder?: string;
   className?: string;
-  onChange?: (values: string[]) => void;
+  loading?: boolean;
+  onClickCheckbox?: (id: string) => void;
   defaultValue?: string[];
+  selectedIds?: Set<string>;
+  name?: string;
 }
 
 export const CheckboxFiltersGroup: React.FC<CheckboxFiltersGroupProps> = ({
@@ -25,16 +28,32 @@ export const CheckboxFiltersGroup: React.FC<CheckboxFiltersGroupProps> = ({
   limit = 5,
   searchInputPlaceholder = 'Поиск...',
   className,
-  onChange,
+  loading,
+  onClickCheckbox,
   defaultValue,
+  selectedIds,
+  name,
 }) => {
   const [showAll, setShowAll] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  //   const [selected, { add, toggle }] = useSet<string>(new Set([]));
 
   const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
+
+  if (loading) {
+    return (
+      <div className={className}>
+        <p className="font-bold mb-3">{title}</p>
+        {...Array(limit)
+          .fill(0)
+          .map((_, index) => (
+            <Skeleton key={index} className="h-6 mb-4 rounded-[8px]" />
+          ))}
+        <Skeleton className="w-28 h-6 mb-4 rounded-[8px]" />
+      </div>
+    );
+  }
 
   const list = showAll
     ? items.filter(item =>
@@ -63,8 +82,9 @@ export const CheckboxFiltersGroup: React.FC<CheckboxFiltersGroupProps> = ({
             text={item.text}
             value={item.value}
             endAdornment={item.endAdornment}
-            checked={false}
-            onCheckedChange={ids => console.log(ids)}
+            checked={selectedIds?.has(item.value)}
+            onCheckedChange={() => onClickCheckbox?.(item.value)}
+            name={name}
           />
         ))}
       </div>
