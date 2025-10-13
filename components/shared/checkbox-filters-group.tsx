@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-// import { useSet } from 'react-use';
 import { FilterCheckbox, FilterChecboxProps } from './filter-checkbox';
 import { Input, Skeleton } from '../ui';
 
