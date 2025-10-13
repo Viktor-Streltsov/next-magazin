@@ -3,23 +3,14 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useCategoryStore } from '@/store/category';
+import { Category } from '@prisma/client';
 
 interface CategoriesProps {
+  items: Category[];
   className?: string;
 }
 
-const cats = [
-  { id: 1, name: 'Пиццы' },
-  { id: 2, name: 'Комбо' },
-  { id: 3, name: 'Закуски' },
-  { id: 4, name: 'Коктейли' },
-  { id: 5, name: 'Кофе' },
-  { id: 6, name: 'Напитки' },
-  { id: 7, name: 'Десерты' },
-  { id: 8, name: 'Десерты' },
-];
-
-export const Categories: React.FC<CategoriesProps> = ({ className }) => {
+export const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
   const categoryActiveId = useCategoryStore(state => state.activeId);
 
   return (
@@ -29,7 +20,7 @@ export const Categories: React.FC<CategoriesProps> = ({ className }) => {
         className
       )}
     >
-      {cats.map(({ name, id }) => (
+      {items.map(({ name, id }) => (
         <a
           href={`#${name}`}
           className={cn(
