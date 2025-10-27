@@ -8,15 +8,7 @@ import {
 import { prisma } from '@/prisma/prisma-client';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams() {
-  const products = await prisma.product.findMany({
-    select: { id: true },
-  });
-
-  return products.map(product => ({
-    id: product.id.toString(),
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function ProductPage({
   params,
@@ -25,8 +17,12 @@ export default async function ProductPage({
 }) {
   const { id } = await params;
 
-  const product = await prisma.product.findUnique({
+  const product = await prisma.product.findFirst({
     where: { id: Number(id) },
+    include: {
+      ingredients: true,
+      items: true,
+    },
   });
 
   if (!product) {
@@ -46,10 +42,7 @@ export default async function ProductPage({
           />
 
           <p className="text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-            exercitationem quaerat aut odio impedit cum, facere quidem.
-            Assumenda recusandae illo adipisci neque esse eligendi omnis, beatae
-            itaque nesciunt vero laboriosam.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
 
           <GroupVariant
@@ -60,11 +53,11 @@ export default async function ProductPage({
                 value: '1',
               },
               {
-                name: 'asdfasdf',
+                name: 'Medium',
                 value: '2',
               },
               {
-                name: 'big',
+                name: 'Big',
                 value: '3',
                 disabled: true,
               },
