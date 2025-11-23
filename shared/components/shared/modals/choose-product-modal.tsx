@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/shared/lib/utils';
 import {
@@ -12,6 +11,9 @@ import { ChooseProductForm } from '../choose-product-form';
 import { ProductWithRelations } from '@/@types/prisma';
 import { ChoosePizzaForm } from '../choose-pizza-form';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { useCartStore } from '@/shared/store';
+import toast from 'react-hot-toast';
+import { ProductForm } from '../product-form';
 
 interface Props {
   product: ProductWithRelations;
@@ -20,8 +22,6 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const router = useRouter();
-
-  const isPizzaForm = Boolean(product.items[0].pizzaType);
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -35,16 +35,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
           <DialogTitle>{product.name}</DialogTitle>
         </VisuallyHidden>
 
-        {isPizzaForm ? (
-          <ChoosePizzaForm
-            imageUrl={product.image}
-            name={product.name}
-            ingredients={product.ingredients}
-            items={product.items}
-          />
-        ) : (
-          <ChooseProductForm imageUrl={product.image} name={product.name} />
-        )}
+        <ProductForm product={product} onSubmit={() => router.back()} />
       </DialogContent>
     </Dialog>
   );

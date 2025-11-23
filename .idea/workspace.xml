@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ab9f8d7a-437a-447a-850e-9dadcb9e481b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/components.json" beforeDir="false" afterPath="$PROJECT_DIR$/components.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/seed.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/components/shared/choose-pizza-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/shared/components/shared/choose-pizza-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/components/shared/choose-product-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/shared/components/shared/choose-product-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/components/shared/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/shared/components/shared/header.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/components/shared/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/shared/components/shared/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/components/shared/modals/choose-product-modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/shared/components/shared/modals/choose-product-modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/hooks/use-pizza-options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/shared/hooks/use-pizza-options.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/services/api-client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/shared/services/api-client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,9 +29,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Viktor-Streltsov"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Viktor-Streltsov/next-magazin.git",
+    "accountId": "5999ed1b-dcc6-4628-a007-00c7aacddd75"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="34drwHkHFG7DRPAXYZM2I3aIDf9" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,6 +53,10 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -47,7 +77,11 @@
       <option name="presentableId" value="Default" />
       <updated>1761554528535</updated>
       <workItem from="1761554530254" duration="8000" />
+      <workItem from="1763887501425" duration="1276000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
