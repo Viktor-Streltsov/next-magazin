@@ -13,15 +13,16 @@ interface Props {
 export const CartButton: React.FC<Props> = ({ className }) => {
   const totalAmount = useCartStore(state => state.totalAmount);
   const loading = useCartStore(state => state.loading);
+  const items = useCartStore(state => state.items);
 
   return (
     <CartDrawer>
-      <Button disabled={loading} className="group relative">
+      <Button loading={loading} className="group relative">
         <b>{totalAmount} ₽</b>
         <span className="h-full w-[1px] bg-white/30 mx-3" />
         <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-0">
           <ShoppingCart size={16} className=" relative" strokeWidth={2} />
-          <b>3</b>
+          <b>{items.length}</b>
         </div>
         <ArrowRight
           size={20}

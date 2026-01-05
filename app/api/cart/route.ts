@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ userCart });
+    return NextResponse.json(userCart);
   } catch (error) {
     console.error('Error fetching cart data:', error);
     return NextResponse.json({ error: 'Internal error' }, { status: 500 });
@@ -83,7 +83,9 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const updatedUserCart = await updateCartTotalAmount(token);
+    await updateCartTotalAmount(token);
+
+    const updatedUserCart = await findOrCreateCart(token);
 
     const resp = NextResponse.json(updatedUserCart);
     resp.cookies.set('cartToken', token);

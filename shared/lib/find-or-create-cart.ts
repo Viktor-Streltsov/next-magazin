@@ -5,12 +5,42 @@ export const findOrCreateCart = async (token: string) => {
     where: {
       token,
     },
+    include: {
+      items: {
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          productItem: {
+            include: {
+              product: true,
+            },
+          },
+          ingredients: true,
+        },
+      },
+    },
   });
 
   if (!userCart) {
     userCart = await prisma.cart.create({
       data: {
         token,
+      },
+      include: {
+        items: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+          include: {
+            productItem: {
+              include: {
+                product: true,
+              },
+            },
+            ingredients: true,
+          },
+        },
       },
     });
   }
