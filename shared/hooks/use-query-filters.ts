@@ -19,11 +19,5 @@ export const useQueryFilters = (filters: Filters) => {
     });
 
     router.push(`?${query}`, { scroll: false });
-  }, [
-    filters.pizzaTypes,
-    filters.prices,
-    filters.selectedIngredients,
-    filters.sizes,
-    router,
-  ]);
+  }, [filters]);
 };

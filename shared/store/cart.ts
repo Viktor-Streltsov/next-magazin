@@ -42,6 +42,8 @@ export const useCartStore = create<CartState>((set, get) => ({
     } catch (error) {
       console.error(error);
       set({ error: true, loading: false });
+    } finally {
+      set({ loading: false });
     }
   },
 
@@ -58,6 +60,8 @@ export const useCartStore = create<CartState>((set, get) => ({
     } catch (error) {
       console.error(error);
       set({ error: true, loading: false });
+    } finally {
+      set({ loading: false });
     }
   },
 
@@ -80,6 +84,11 @@ export const useCartStore = create<CartState>((set, get) => ({
     } catch (error) {
       console.error(error);
       set({ error: true, loading: false });
+    } finally {
+      set(state => ({
+        loading: false,
+        items: state.items.map(item => ({ ...item, disabled: false })),
+      }));
     }
   },
 
@@ -96,6 +105,8 @@ export const useCartStore = create<CartState>((set, get) => ({
     } catch (error) {
       console.error(error);
       set({ error: true, loading: false });
+    } finally {
+      set({ loading: false });
     }
   },
 }));

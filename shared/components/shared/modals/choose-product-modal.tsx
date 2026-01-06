@@ -7,12 +7,8 @@ import {
   DialogContent,
   DialogTitle,
 } from '@/shared/components/ui/dialog';
-import { ChooseProductForm } from '../choose-product-form';
 import { ProductWithRelations } from '@/@types/prisma';
-import { ChoosePizzaForm } from '../choose-pizza-form';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { useCartStore } from '@/shared/store';
-import toast from 'react-hot-toast';
 import { ProductForm } from '../product-form';
 
 interface Props {

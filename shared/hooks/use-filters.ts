@@ -1,6 +1,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useSet } from 'react-use';
-import { useState } from 'react';
+import React from 'react';
 
 interface PriceProps {
   priceFrom?: number;
@@ -24,7 +24,7 @@ interface ReturnProps extends Filters {
   setPrices: (name: keyof PriceProps, value: number) => void;
   setPizzaTypes: (value: string) => void;
   setSizes: (value: string) => void;
-  setIngredients: (value: string) => void;
+  setSelectedIngredients: (value: string) => void;
 }
 
 export const useFilters = (): ReturnProps => {
@@ -33,32 +33,28 @@ export const useFilters = (): ReturnProps => {
     string
   >;
 
-  // Фильтрация ингредиентов
-  const [selectedIngredients, { toggle: toggleIngredients }] = useSet<string>(
-    new Set(searchParams.get('ingredients')?.split(','))
+  const [selectedIngredients, { toggle: toggleIngredients }] = useSet(
+    new Set<string>(searchParams.get('ingredients')?.split(','))
   );
 
-  // Фильтрация размеров
   const [sizes, { toggle: toggleSizes }] = useSet(
     new Set<string>(
-      searchParams.get('sizes') ? searchParams.get('sizes')?.split(',') : []
+      searchParams.has('sizes') ? searchParams.get('sizes')?.split(',') : []
     )
   );
 
-  // Фильтрация стоимости
-  const [prices, setPrices] = useState<PriceProps>({
-    priceFrom: Number(searchParams.get('priceFrom')) || undefined,
-    priceTo: Number(searchParams.get('priceTo')) || undefined,
-  });
-
-  // Фильтрация типов пиццы
   const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
     new Set<string>(
-      searchParams.get('pizzaTypes')
+      searchParams.has('pizzaTypes')
         ? searchParams.get('pizzaTypes')?.split(',')
         : []
     )
   );
+
+  const [prices, setPrices] = React.useState<PriceProps>({
+    priceFrom: Number(searchParams.get('priceFrom')) || undefined,
+    priceTo: Number(searchParams.get('priceTo')) || undefined,
+  });
 
   const updatePrice = (name: keyof PriceProps, value: number) => {
     setPrices(prev => ({
@@ -67,14 +63,17 @@ export const useFilters = (): ReturnProps => {
     }));
   };
 
-  return {
-    sizes,
-    pizzaTypes,
-    prices,
-    selectedIngredients,
-    setPrices: updatePrice,
-    setPizzaTypes: togglePizzaTypes,
-    setSizes: toggleSizes,
-    setIngredients: toggleIngredients,
-  };
+  return React.useMemo(
+    () => ({
+      sizes,
+      pizzaTypes,
+      selectedIngredients,
+      prices,
+      setPrices: updatePrice,
+      setPizzaTypes: togglePizzaTypes,
+      setSizes: toggleSizes,
+      setSelectedIngredients: toggleIngredients,
+    }),
+    [sizes, pizzaTypes, selectedIngredients, prices]
+  );
 };

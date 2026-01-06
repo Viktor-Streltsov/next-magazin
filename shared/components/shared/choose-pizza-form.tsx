@@ -63,7 +63,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     <div className={cn(className, 'flex flex-1 w-full')}>
       <PizzaImage imageUrl={imageUrl} size={size} />
 
-      <div className="w-[490px] bg-[#f7f6f5] p-7">
+      <div className="w-[490px] bg-[#f7f6f5] p-7 rounded">
         <Title text={name} size="md" className="font-extrabold mb-1" />
 
         <p className="text-gray-400">{textDetaills}</p>

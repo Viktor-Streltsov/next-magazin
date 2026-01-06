@@ -6,12 +6,14 @@ import { Title } from './title';
 import { Button } from '../ui';
 import { cn } from '@/shared/lib/utils';
 import Link from 'next/link';
+import { Ingredient } from '@prisma/client';
 
 interface ProductCartProps {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
+  ingredients: Ingredient[];
   className?: string;
 }
 
@@ -20,6 +22,7 @@ export const ProductCart: React.FC<ProductCartProps> = ({
   name,
   price,
   imageUrl,
+  ingredients,
   className,
 }) => {
   return (
@@ -34,8 +37,7 @@ export const ProductCart: React.FC<ProductCartProps> = ({
         <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
 
         <p className="text-sm text-gray-400">
-          Цыпленок, моцарелла, сыры чеддер и пармезан, сырный соус, томаты, соус
-          альфредо, чеснок
+          {ingredients.map(ing => ing.name).join(', ')}
         </p>
 
         <div className="w-[100%] flex justify-between items-center mt-4">
