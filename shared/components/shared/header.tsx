@@ -10,9 +10,15 @@ import { CartButton } from './cart-button';
 
 interface HeaderProps {
   className?: string;
+  hasSearch?: boolean;
+  hasCart?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ className }) => {
+export const Header: React.FC<HeaderProps> = ({
+  className,
+  hasSearch = true,
+  hasCart = true,
+}) => {
   return (
     <header className={cn('px-5 border-b border-gray-100', className)}>
       <Container className="flex items-center flex-wrap gap-5 justify-between py-8">
@@ -29,9 +35,11 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
           </div>
         </Link>
 
-        <div className="mx-10 flex-1">
-          <SearchInput />
-        </div>
+        {hasSearch && (
+          <div className="mx-10 flex-1">
+            <SearchInput />
+          </div>
+        )}
 
         {/* {Правая часть} */}
         <div className="flex items-center gap-3">
@@ -39,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
             <User size={16} /> Войти
           </Button>
 
-          <CartButton />
+          {hasCart && <CartButton />}
         </div>
       </Container>
     </header>
