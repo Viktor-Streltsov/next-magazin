@@ -20,5 +20,9 @@ export { WhiteBlock } from './white-block';
 export { CheckoutItem } from './checkout-item';
 export { CheckoutItemSkeleton } from './checkout-item-skeleton';
 export { CheckoutSidebar } from './checkout-sidebar';
+export { ClearButton } from './clear-button';
+export { ErrorText } from './error-text';
+export { RequiredSymbol } from './required-symbol';
+export { AdressInput } from './address-input';
 
 export * from './modals';
