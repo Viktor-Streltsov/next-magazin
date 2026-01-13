@@ -98,8 +98,7 @@ export default function CheckoutPage() {
             <div className="w-[450px]">
               <CheckoutSidebar
                 totalAmount={totalAmount}
-                loading={loading}
-                // loading={loading || submitting}
+                loading={loading || submitting}
               />
             </div>
           </div>

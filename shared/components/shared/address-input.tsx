@@ -26,7 +26,7 @@ const AddressSuggestions = dynamic(
 export const AdressInput: React.FC<Props> = ({ onChange }) => {
   return (
     <AddressSuggestions
-      token="b5b8bb983ddcd08648080e0271d9dd367bb7aa65"
+      token="9bdd41ab12cd7fac68d7d98e2656467f3c469712"
       onChange={data => onChange?.(data?.value)}
     />
   );
