@@ -15,6 +15,7 @@ import {
 } from '@/shared/constants/checkout-form-schema';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { createOrder } from '@/app/actions';
 
 export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
@@ -37,8 +38,7 @@ export default function CheckoutPage() {
     try {
       setSubmitting(true);
 
-      // const url = await createOrder(data);
-      const url = '/';
+      const url = await createOrder(data);
 
       toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
         icon: '✅',
