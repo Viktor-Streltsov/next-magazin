@@ -25,4 +25,7 @@ export { ErrorText } from './error-text';
 export { RequiredSymbol } from './required-symbol';
 export { AdressInput } from './address-input';
 
+export * from './email-temapltes';
+export * from './checkout-cart';
+export * from './form-components';
 export * from './modals';
