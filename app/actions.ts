@@ -77,6 +77,7 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
 
+    // Плата через Юкассу
     const paymentData = await createPayment({
       amount: order.totalAmount,
       orderId: order.id,
