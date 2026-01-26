@@ -24,6 +24,7 @@ export { ClearButton } from './clear-button';
 export { ErrorText } from './error-text';
 export { RequiredSymbol } from './required-symbol';
 export { AdressInput } from './address-input';
+export { Providers } from './providers';
 
 export * from './email-temapltes';
 export * from './checkout-cart';
