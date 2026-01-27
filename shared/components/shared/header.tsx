@@ -1,19 +1,17 @@
 'use client';
 
 import { cn } from '@/shared/lib/utils';
-import React, { use } from 'react';
+import React from 'react';
 import { Container } from './container';
 import Image from 'next/image';
-import { Button } from '../ui';
-import { User } from 'lucide-react';
 import Link from 'next/link';
 import { SearchInput } from './search-input';
 import { CartButton } from './cart-button';
 import { useRouter, useSearchParams } from 'next/navigation';
-
 import toast from 'react-hot-toast';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { ProfileButton } from './profile-button';
+import { AuthModal } from './modals/auth-modal';
 
 interface HeaderProps {
   className?: string;
@@ -26,10 +24,8 @@ export const Header: React.FC<HeaderProps> = ({
   hasSearch = true,
   hasCart = true,
 }) => {
-  const { data: session } = useSession();
   const router = useRouter();
-
-  console.log('Session:', session);
+  const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
   const searchParams = useSearchParams();
 
@@ -78,6 +74,11 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* {Правая часть} */}
         <div className="flex items-center gap-3">
+          <AuthModal
+            open={openAuthModal}
+            onClose={() => setOpenAuthModal(false)}
+          />
+
           <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
           {hasCart && <CartButton />}
