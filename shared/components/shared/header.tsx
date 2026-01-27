@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/shared/lib/utils';
-import React from 'react';
+import React, { use } from 'react';
 import { Container } from './container';
 import Image from 'next/image';
 import { Button } from '../ui';
@@ -12,6 +12,8 @@ import { CartButton } from './cart-button';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import toast from 'react-hot-toast';
+import { useSession, signIn } from 'next-auth/react';
+import { ProfileButton } from './profile-button';
 
 interface HeaderProps {
   className?: string;
@@ -24,7 +26,10 @@ export const Header: React.FC<HeaderProps> = ({
   hasSearch = true,
   hasCart = true,
 }) => {
+  const { data: session } = useSession();
   const router = useRouter();
+
+  console.log('Session:', session);
 
   const searchParams = useSearchParams();
 
@@ -73,9 +78,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* {Правая часть} */}
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="flex items-center gap-1">
-            <User size={16} /> Войти
-          </Button>
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
           {hasCart && <CartButton />}
         </div>
