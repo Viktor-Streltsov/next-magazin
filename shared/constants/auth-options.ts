@@ -4,7 +4,7 @@ import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/prisma/prisma-client';
-import { compare, hashSync } from 'bcrypt';
+import { compare, hashSync } from 'bcryptjs';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -15,6 +15,11 @@ export const authOptions: AuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
+      authorization: {
+        params: {
+          scope: 'read:user user:email',
+        },
+      },
       profile(profile) {
         return {
           id: profile.id,
@@ -75,13 +80,20 @@ export const authOptions: AuthOptions = {
     strategy: 'jwt',
   },
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user, account, profile }) {
       try {
         if (account?.provider === 'credentials') {
           return true;
         }
 
-        if (!user.email) {
+        let email = user.email || (profile as any)?.email;
+
+        if (!email && account?.provider === 'github') {
+          email = `github_${account.providerAccountId}@placeholder.local`;
+        }
+
+        if (!email) {
+          console.error('❌ No email provided by OAuth provider');
           return false;
         }
 
@@ -92,7 +104,7 @@ export const authOptions: AuthOptions = {
                 provider: account?.provider,
                 providerId: account?.providerAccountId,
               },
-              { email: user.email },
+              { email: email },
             ],
           },
         });
@@ -113,18 +125,27 @@ export const authOptions: AuthOptions = {
 
         await prisma.user.create({
           data: {
-            email: user.email,
-            fullName: user.name || 'User #' + user.id,
-            password: hashSync(user.id.toString(), 10),
+            email: email,
+            fullName: user.name || user.image || 'GitHub User',
+            password: hashSync(
+              account?.providerAccountId ?? user.id?.toString() ?? 'default',
+              10
+            ),
             verified: new Date(),
             provider: account?.provider,
             providerId: account?.providerAccountId,
+            role: 'USER',
           },
         });
 
         return true;
       } catch (error) {
-        console.error('Error [SIGNIN]', error);
+        console.error('❌ Error [SIGNIN]:', error);
+
+        if (error instanceof Error) {
+          console.error('Error details:', error.message);
+        }
+
         return false;
       }
     },
