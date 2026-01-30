@@ -1,29 +1,28 @@
 import { prisma } from '@/prisma/prisma-client';
+import { ProfileForm } from '@/shared/components/shared';
 import { getUserSession } from '@/shared/lib';
 import { redirect } from 'next/navigation';
 
 export default async function ProfilePage() {
-  const user = await getUserSession(); // теперь это user, а не session
+  const session = await getUserSession();
+
+  console.log('Session:', session); // Проверьте, что здесь
+
+  if (!session?.id) {
+    return redirect('/not-auth');
+  }
+
+  console.log('Looking for user with id:', session.id); // Проверьте ID
+
+  const user = await prisma.user.findFirst({
+    where: {
+      id: Number(session.id),
+    },
+  });
 
   if (!user) {
     return redirect('/not-auth');
   }
 
-  // Проверяем что id существует
-  if (!user.id) {
-    console.error('User exists but id is missing:', user);
-    return redirect('/not-auth');
-  }
-
-  const dbUser = await prisma.user.findFirst({
-    where: {
-      id: Number(user.id), // используем user.id вместо session.id
-    },
-  });
-
-  if (!dbUser) {
-    return redirect('/not-auth');
-  }
-
-  return <div>Profile Page: {dbUser.fullName}</div>;
+  return <ProfileForm data={user} />;
 }

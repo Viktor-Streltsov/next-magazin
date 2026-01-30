@@ -22,7 +22,7 @@ export const authOptions: AuthOptions = {
       },
       profile(profile) {
         return {
-          id: profile.id,
+          id: Number(profile.id),
           name: profile.name || profile.login,
           email: profile.email,
           image: profile.avatar_url,
@@ -86,7 +86,7 @@ export const authOptions: AuthOptions = {
           return true;
         }
 
-        let email = user.email || (profile as any)?.email;
+        let email = user.email || profile?.email;
 
         if (!email && account?.provider === 'github') {
           email = `github_${account.providerAccountId}@placeholder.local`;
@@ -120,10 +120,13 @@ export const authOptions: AuthOptions = {
             },
           });
 
+          user.id = findUser.id;
+          user.email = findUser.email;
+
           return true;
         }
 
-        await prisma.user.create({
+        const newUser = await prisma.user.create({
           data: {
             email: email,
             fullName: user.name || user.image || 'GitHub User',
@@ -138,33 +141,41 @@ export const authOptions: AuthOptions = {
           },
         });
 
+        user.id = newUser.id;
+        user.email = newUser.email;
+
         return true;
       } catch (error) {
         console.error('❌ Error [SIGNIN]:', error);
-
-        if (error instanceof Error) {
-          console.error('Error details:', error.message);
-        }
-
         return false;
       }
     },
-    async jwt({ token }) {
-      if (!token.email) {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = String(user.id);
+        token.email = user.email;
+        token.role = user.role;
+        token.name = user.name;
         return token;
       }
 
-      const findUser = await prisma.user.findFirst({
-        where: {
-          email: token.email,
-        },
-      });
+      if (token.id) {
+        return token;
+      }
 
-      if (findUser) {
-        token.id = String(findUser.id);
-        token.email = findUser.email;
-        token.fullName = findUser.fullName;
-        token.role = findUser.role;
+      if (token.email) {
+        const findUser = await prisma.user.findFirst({
+          where: {
+            email: token.email,
+          },
+        });
+
+        if (findUser) {
+          token.id = String(findUser.id);
+          token.email = findUser.email;
+          token.fullName = findUser.fullName;
+          token.role = findUser.role;
+        }
       }
 
       return token;
@@ -172,7 +183,9 @@ export const authOptions: AuthOptions = {
     session({ session, token }) {
       if (session?.user) {
         session.user.id = token.id;
+        session.user.email = token.email || '';
         session.user.role = token.role;
+        session.user.name = token.fullName || token.name || '';
       }
 
       return session;
