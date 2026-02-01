@@ -44,6 +44,7 @@
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.71.0",
     "react-hot-toast": "^2.6.0",
+    "react-insta-stories": "^2.8.0",
     "react-use": "^17.6.0",
     "resend": "^6.7.0",
     "tailwind-merge": "^3.3.1",
