@@ -43,7 +43,7 @@ export const ProductForm: React.FC<Props> = ({
   if (isPizzaForm) {
     return (
       <ChoosePizzaForm
-        imageUrl={product.image}
+        imageUrl={product.imageUrl}
         name={product.name}
         ingredients={product.ingredients}
         items={product.items}
@@ -55,7 +55,7 @@ export const ProductForm: React.FC<Props> = ({
 
   return (
     <ChooseProductForm
-      imageUrl={product.image}
+      imageUrl={product.imageUrl}
       name={product.name}
       onSubmit={onSubmit}
       prise={firstItem.price}

@@ -89,7 +89,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
                 key={ingredient.id}
                 name={ingredient.name}
                 price={ingredient.price}
-                imageUrl={ingredient.image}
+                imageUrl={ingredient.imageUrl}
                 onClick={() => addIngredient(ingredient.id)}
                 active={selectedIngredients.has(ingredient.id)}
               />

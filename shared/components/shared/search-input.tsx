@@ -5,7 +5,7 @@ import { Api } from '@/shared/services/api-client';
 import { Product } from '@prisma/client';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useClickAway, useDebounce } from 'react-use';
 
 interface SearchInputProps {
@@ -79,7 +79,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
               >
                 <img
                   className="rounded-sm h-8 w-8"
-                  src={product.image}
+                  src={product.imageUrl}
                   alt={product.name}
                 />
                 <span>{product.name}</span>

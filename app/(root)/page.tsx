@@ -10,7 +10,7 @@ export default async function Home({
 }) {
   const params = await searchParams;
   const categories = await findPizzas(params);
- 
+
   return (
     <>
       <Container className="mt-10">

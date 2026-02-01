@@ -8,7 +8,7 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
-      email: string; // Добавьте email
+      email: string;
       role: UserRole;
       name: string;
       image: string;
@@ -18,14 +18,14 @@ declare module 'next-auth' {
   interface User extends DefaultUser {
     id: number;
     role: UserRole;
-    email: string; // Убедитесь что есть
+    email: string;
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT extends DefaultJWT {
     id: string;
-    email: string; // Добавьте email
+    email: string;
     fullName?: string;
     role: UserRole;
   }

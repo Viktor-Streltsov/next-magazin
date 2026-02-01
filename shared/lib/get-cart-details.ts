@@ -23,7 +23,7 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
     id: item.id,
     quantity: item.quantity,
     name: item.productItem.product.name,
-    imageUrl: item.productItem.product.image,
+    imageUrl: item.productItem.product.imageUrl,
     price: calcCartItemTotalPrice(item),
     pizzaSize: item.productItem.size,
     pizzaType: item.productItem.pizzaType,

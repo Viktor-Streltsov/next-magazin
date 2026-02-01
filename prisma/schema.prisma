@@ -41,7 +41,7 @@ model Product {
   id Int @id @default(autoincrement())
 
   name     String
-  imageUrl String?
+  imageUrl String
 
   ingredients Ingredient[]
   items       ProductItem[]
@@ -71,7 +71,7 @@ model Ingredient {
 
   name     String
   price    Int
-  imageUrl String?
+  imageUrl String
 
   products  Product[]
   cartItems CartItem[]
