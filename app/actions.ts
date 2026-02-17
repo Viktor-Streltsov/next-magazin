@@ -10,6 +10,7 @@ import { hashSync } from 'bcryptjs';
 import { cookies } from 'next/headers';
 
 export async function createOrder(data: CheckoutFormValues) {
+  console.log('Creating order with data:', data);
   try {
     const cookieStore = await cookies();
     const cartToken = cookieStore.get('cartToken')?.value;
@@ -107,11 +108,11 @@ export async function createOrder(data: CheckoutFormValues) {
       PayOrderTemplate({
         orderId: order.id,
         totalAmount: order.totalAmount,
-        paymentUrl,
+        // paymentUrl,
       })
     );
 
-    return paymentUrl;
+    // return paymentUrl;
   } catch (err) {
     console.log('[CreateOrder] Server error', err);
   }
