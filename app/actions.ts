@@ -108,11 +108,11 @@ export async function createOrder(data: CheckoutFormValues) {
       PayOrderTemplate({
         orderId: order.id,
         totalAmount: order.totalAmount,
-        // paymentUrl,
+        paymentUrl,
       })
     );
 
-    // return paymentUrl;
+    return paymentUrl;
   } catch (err) {
     console.log('[CreateOrder] Server error', err);
   }

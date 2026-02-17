@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { render } from '@react-email/render';
 
 export const sendEmail = async (
   to: string,
@@ -8,13 +9,13 @@ export const sendEmail = async (
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const resolvedTemplate = await Promise.resolve(template);
+  const html = await render(resolvedTemplate as React.ReactElement);
 
   const { data, error } = await resend.emails.send({
     from: 'onboarding@resend.dev',
     to,
     subject,
-    text: '',
-    react: resolvedTemplate,
+    html,
   });
 
   if (error) {
