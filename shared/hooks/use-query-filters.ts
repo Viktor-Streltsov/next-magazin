@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Filters } from './use-filters';
 import qs from 'qs';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export const useQueryFilters = (filters: Filters) => {
   const isMounted = React.useRef(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -14,6 +15,7 @@ export const useQueryFilters = (filters: Filters) => {
         pizzaTypes: Array.from(filters.pizzaTypes),
         sizes: Array.from(filters.sizes),
         ingredients: Array.from(filters.selectedIngredients),
+        sortBy: searchParams.get('sortBy') ?? 'popular',
       };
 
       const query = qs.stringify(params, {
@@ -24,9 +26,8 @@ export const useQueryFilters = (filters: Filters) => {
         scroll: false,
       });
 
-      console.log(filters, 999);
     }
 
     isMounted.current = true;
-  }, [filters]);
+  }, [filters, router]);
 };

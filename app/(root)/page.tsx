@@ -25,6 +25,7 @@ export default async function Home({
 
       <TopBar
         categories={categories.filter(category => category.products.length > 0)}
+        sortBy={params.sortBy}
       />
 
       <Stories />
