@@ -36,7 +36,7 @@ export const ChooseProductForm: React.FC<Props> = ({
           src={imageUrl}
           alt="Logo"
           className={cn(
-            'relative left-2 top-2 transition-all z-10 duration-300 w-[350px] h-[350px]'
+            'relative left-2 top-2 transition-all z-10 duration-300 w-[350px] h-[350px] ',
           )}
         />
       </div>
