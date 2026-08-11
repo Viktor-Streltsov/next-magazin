@@ -12,6 +12,9 @@ interface Props {
   className?: string;
 }
 
+const storySizes =
+  'w-[108px] h-[136px] sm:w-[140px] sm:h-[175px] md:w-[168px] md:h-[210px] lg:w-[200px] lg:h-[250px]';
+
 export const Stories: React.FC<Props> = ({ className }) => {
   const [stories, setStories] = React.useState<IStory[]>([]);
   const [open, setOpen] = React.useState(false);
@@ -36,37 +39,54 @@ export const Stories: React.FC<Props> = ({ className }) => {
 
   return (
     <>
-      <Container className={cn('my-6 sm:my-10 overflow-x-auto scrollbar', className)}>
-        <div className="flex items-center gap-2 sm:gap-3 min-w-min pb-1">
-          {stories.length === 0 &&
-            [...Array(6)].map((_, index) => (
-              <div
-                key={index}
-                className="w-[120px] h-[150px] sm:w-[160px] sm:h-[200px] lg:w-[200px] lg:h-[250px] bg-gray-200 rounded-md animate-pulse shrink-0"
-              />
-            ))}
+      <Container className={cn('my-5 sm:my-8', className)}>
+        <div className="scroll-x scroll-x-snap scroll-fade-x -mx-1 px-1">
+          <div className="flex w-max items-center gap-2.5 sm:gap-3 pb-1">
+            {stories.length === 0 &&
+              [...Array(6)].map((_, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    'shrink-0 rounded-2xl bg-gray-200 animate-pulse',
+                    storySizes
+                  )}
+                />
+              ))}
 
-          {stories.map(story => (
-            <img
-              key={story.id}
-              onClick={() => onClickStory(story)}
-              className="rounded-md cursor-pointer w-[120px] h-[150px] sm:w-[160px] sm:h-[200px] lg:w-[200px] lg:h-[250px] object-cover shrink-0"
-              src={story.previewImageUrl}
-              alt=""
-            />
-          ))}
-        </div>
-
-        {open && (
-          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-30 p-4">
-            <div className="relative w-full max-w-[520px]">
+            {stories.map(story => (
               <button
-                className="absolute -right-2 -top-10 sm:-right-10 sm:-top-5 z-30"
-                onClick={() => setOpen(false)}
+                key={story.id}
+                type="button"
+                onClick={() => onClickStory(story)}
+                className={cn(
+                  'shrink-0 overflow-hidden rounded-2xl ring-2 ring-transparent transition hover:ring-primary/30 focus-visible:outline-none focus-visible:ring-primary',
+                  storySizes
+                )}
               >
-                <X className="w-8 h-8 text-white/50" />
+                <img
+                  className="h-full w-full object-cover"
+                  src={story.previewImageUrl}
+                  alt=""
+                />
               </button>
+            ))}
+          </div>
+        </div>
+      </Container>
 
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4">
+          <div className="relative w-full max-w-[min(520px,100%)]">
+            <button
+              type="button"
+              className="absolute -top-12 right-0 z-10 rounded-full p-2 text-white/70 transition hover:text-white sm:-right-2 sm:-top-10"
+              onClick={() => setOpen(false)}
+              aria-label="Закрыть"
+            >
+              <X className="h-8 w-8" />
+            </button>
+
+            <div className="overflow-hidden rounded-2xl">
               <ReactStories
                 onAllStoriesEnd={() => setOpen(false)}
                 stories={
@@ -75,12 +95,12 @@ export const Stories: React.FC<Props> = ({ className }) => {
                 }
                 defaultInterval={3000}
                 width="100%"
-                height={600}
+                height={Math.min(720, window.innerHeight * 0.82)}
               />
             </div>
           </div>
-        )}
-      </Container>
+        </div>
+      )}
     </>
   );
 };

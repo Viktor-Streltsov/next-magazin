@@ -60,6 +60,38 @@ html {
   .text-balance {
     text-wrap: balance;
   }
+
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .scroll-x::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-x-snap {
+    scroll-snap-type: x mandatory;
+  }
+
+  .scroll-x-snap > * {
+    scroll-snap-align: start;
+  }
+
+  .scroll-fade-right {
+    mask-image: linear-gradient(to right, #000 90%, transparent 100%);
+  }
+
+  .scroll-fade-x {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 24px,
+      #000 calc(100% - 24px),
+      transparent
+    );
+  }
 }
 
 .sr-only {

@@ -9,7 +9,6 @@ import { SearchInput } from './search-input';
 import { CartButton } from './cart-button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { useSession } from 'next-auth/react';
 import { ProfileButton } from './profile-button';
 import { AuthModal } from './modals/auth-modal';
 
@@ -26,7 +25,6 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const router = useRouter();
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
-
   const searchParams = useSearchParams();
 
   React.useEffect(() => {
@@ -50,47 +48,51 @@ export const Header: React.FC<HeaderProps> = ({
     }
   }, []);
 
+  const authControls = (
+    <>
+      <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+      <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} compact />
+      {hasCart && <CartButton compact />}
+    </>
+  );
+
   return (
-    <header className={cn('border-b border-gray-100', className)}>
-      <Container className="flex flex-col md:flex-row items-center gap-4 md:gap-5 justify-between py-4 md:py-8">
-        <div className="flex w-full md:w-auto items-center justify-between md:justify-start gap-4">
-          <Link href="/">
-            <div className="flex items-center gap-3 sm:gap-4">
-              <Image src="/logo.png" alt="Logo" width={35} height={35} />
-              <div>
-                <h1 className="text-xl sm:text-2xl uppercase font-black">
+    <header className={cn('border-b border-gray-100 bg-white', className)}>
+      <Container className="py-4 lg:py-6">
+        <div className="grid grid-cols-[1fr_auto] md:grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 gap-y-3 md:gap-x-6">
+          <Link href="/" className="min-w-0">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={35}
+                height={35}
+                className="shrink-0"
+              />
+              <div className="min-w-0">
+                <h1 className="text-lg sm:text-xl lg:text-2xl uppercase font-black truncate">
                   Next Pizza
                 </h1>
-                <p className="hidden sm:block text-sm text-gray-400 leading-3">
+                <p className="hidden md:block text-sm text-gray-400 leading-3">
                   вкусней уже некуда
                 </p>
               </div>
             </div>
           </Link>
 
-          <div className="flex md:hidden items-center gap-2">
-            <AuthModal
-              open={openAuthModal}
-              onClose={() => setOpenAuthModal(false)}
-            />
-            <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-            {hasCart && <CartButton />}
+          <div className="flex items-center justify-end gap-1.5 sm:gap-2 md:hidden">
+            {authControls}
           </div>
-        </div>
 
-        {hasSearch && (
-          <div className="w-full md:flex-1 md:mx-6 lg:mx-10 order-last md:order-none">
-            <SearchInput />
+          {hasSearch && (
+            <div className="col-span-2 md:col-span-1 md:col-start-2 md:row-start-1 min-w-0">
+              <SearchInput />
+            </div>
+          )}
+
+          <div className="hidden md:flex items-center justify-end gap-2 shrink-0">
+            {authControls}
           </div>
-        )}
-
-        <div className="hidden md:flex items-center gap-3 shrink-0">
-          <AuthModal
-            open={openAuthModal}
-            onClose={() => setOpenAuthModal(false)}
-          />
-          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-          {hasCart && <CartButton />}
         </div>
       </Container>
     </header>

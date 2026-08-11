@@ -19,13 +19,19 @@ export const TopBar: React.FC<TopBarProps> = ({
   return (
     <div
       className={cn(
-        'sticky top-0 bg-white py-5 shadow-lg shadow-black/5 z-10',
+        'sticky top-0 z-20 border-b border-gray-100 bg-white/95 py-3 sm:py-4 backdrop-blur supports-[backdrop-filter]:bg-white/80',
         className
       )}
     >
-      <Container className="flex flex-wrap gap-3 sm:gap-5 items-center p-1 justify-between">
-        <Categories items={categories} className="max-w-full overflow-x-auto scrollbar" />
-        <SortPopup sortBy={sortBy} className="shrink-0" />
+      <Container>
+        <div className="flex items-center gap-3">
+          <div className="relative min-w-0 flex-1 scroll-fade-right">
+            <div className="scroll-x scroll-x-snap pb-0.5">
+              <Categories items={categories} />
+            </div>
+          </div>
+          <SortPopup sortBy={sortBy} className="shrink-0" />
+        </div>
       </Container>
     </div>
   );

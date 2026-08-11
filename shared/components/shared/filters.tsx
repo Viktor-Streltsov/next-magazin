@@ -8,9 +8,10 @@ import { useFilters, useIngredients, useQueryFilters } from '@/shared/hooks';
 
 interface FiltersProps {
   className?: string;
+  hideTitle?: boolean;
 }
 
-export const Filters: React.FC<FiltersProps> = ({ className }) => {
+export const Filters: React.FC<FiltersProps> = ({ className, hideTitle }) => {
   const { ingredients, loading } = useIngredients();
   const filters = useFilters();
 
@@ -28,7 +29,9 @@ export const Filters: React.FC<FiltersProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
+      {!hideTitle && (
+        <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
+      )}
 
       {/* Верхние чекбоксы */}
       <CheckboxFiltersGroup

@@ -40,8 +40,17 @@ const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
 
   return (
     <div className={className} id={title} ref={intersectionRef}>
-      <Title text={title} size="lg" className="font-extrabold mb-5" />
-      <div className={cn('grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 xl:gap-[50px]', listClassName)}>
+      <Title
+        text={title}
+        size="lg"
+        className="font-extrabold mb-4 sm:mb-5 text-2xl sm:text-[32px]"
+      />
+      <div
+        className={cn(
+          'grid grid-cols-1 min-[520px]:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 xl:gap-10',
+          listClassName
+        )}
+      >
         {items.map(item => (
           <ProductCart
             key={item.id}

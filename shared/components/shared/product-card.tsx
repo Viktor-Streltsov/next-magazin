@@ -26,32 +26,39 @@ export const ProductCart: React.FC<ProductCartProps> = ({
   className,
 }) => {
   return (
-    <div
-      className={cn('flex flex-wrap items-center content-between', className)}
-    >
-      <Link href={`/product/${id}`}>
-        <div className="flex justify-center p-4 sm:p-6 bg-secondary rounded-lg h-[200px] sm:h-[260px] w-full">
+    <article className={cn('group flex h-full flex-col', className)}>
+      <Link href={`/product/${id}`} className="flex h-full flex-col">
+        <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-secondary p-4 sm:aspect-square sm:rounded-[20px] sm:p-6">
           <img
-            className="w-full max-w-[215px] h-auto max-h-[180px] sm:max-h-[215px] object-contain"
+            className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
             src={imageUrl}
             alt={name}
+            loading="lazy"
           />
         </div>
 
-        <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
+        <Title
+          text={name}
+          size="sm"
+          className="mb-1 mt-3 font-bold line-clamp-2 sm:mt-4"
+        />
 
-        <p className="text-sm text-gray-400">
+        <p className="line-clamp-2 min-h-[2.5rem] text-sm leading-snug text-gray-400">
           {ingredients.map(ing => ing.name).join(', ')}
         </p>
 
-        <div className="w-full flex flex-wrap gap-2 justify-between items-center mt-4">
-          <span className="text-lg sm:text-[20px]">от {price} ₽</span>
-          <Button variant="secondary" className="text-sm sm:text-base font-bold">
-            <Plus size={20} className="mr-1" />
-            Добавить
+        <div className="mt-auto flex items-center justify-between gap-2 pt-4">
+          <span className="text-lg font-semibold sm:text-xl">от {price} ₽</span>
+          <Button
+            variant="secondary"
+            className="h-9 shrink-0 rounded-xl px-3 text-sm font-bold sm:h-10 sm:px-4 sm:text-base"
+          >
+            <Plus size={18} className="mr-1 sm:mr-1.5" />
+            <span className="hidden sm:inline">Добавить</span>
+            <span className="sm:hidden">+</span>
           </Button>
         </div>
       </Link>
-    </div>
+    </article>
   );
 };
