@@ -36,39 +36,35 @@ export const Stories: React.FC<Props> = ({ className }) => {
 
   return (
     <>
-      <Container
-        className={cn(
-          'flex items-center justify-between gap-2 my-10',
-          className
-        )}
-      >
-        {stories.length === 0 &&
-          [...Array(6)].map((_, index) => (
-            <div
-              key={index}
-              className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse"
+      <Container className={cn('my-6 sm:my-10 overflow-x-auto scrollbar', className)}>
+        <div className="flex items-center gap-2 sm:gap-3 min-w-min pb-1">
+          {stories.length === 0 &&
+            [...Array(6)].map((_, index) => (
+              <div
+                key={index}
+                className="w-[120px] h-[150px] sm:w-[160px] sm:h-[200px] lg:w-[200px] lg:h-[250px] bg-gray-200 rounded-md animate-pulse shrink-0"
+              />
+            ))}
+
+          {stories.map(story => (
+            <img
+              key={story.id}
+              onClick={() => onClickStory(story)}
+              className="rounded-md cursor-pointer w-[120px] h-[150px] sm:w-[160px] sm:h-[200px] lg:w-[200px] lg:h-[250px] object-cover shrink-0"
+              src={story.previewImageUrl}
+              alt=""
             />
           ))}
-
-        {stories.map(story => (
-          <img
-            key={story.id}
-            onClick={() => onClickStory(story)}
-            className="rounded-md cursor-pointer"
-            height={250}
-            width={200}
-            src={story.previewImageUrl}
-          />
-        ))}
+        </div>
 
         {open && (
-          <div className="absolute left-0 top-0 w-full h-full bg-black/80 flex items-center justify-center z-30">
-            <div className="relative" style={{ width: 520 }}>
+          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-30 p-4">
+            <div className="relative w-full max-w-[520px]">
               <button
-                className="absolute -right-10 -top-5 z-30"
+                className="absolute -right-2 -top-10 sm:-right-10 sm:-top-5 z-30"
                 onClick={() => setOpen(false)}
               >
-                <X className="absolute top-0 right-0 w-8 h-8 text-white/50" />
+                <X className="w-8 h-8 text-white/50" />
               </button>
 
               <ReactStories
@@ -78,8 +74,8 @@ export const Stories: React.FC<Props> = ({ className }) => {
                   []
                 }
                 defaultInterval={3000}
-                width={520}
-                height={800}
+                width="100%"
+                height={600}
               />
             </div>
           </div>

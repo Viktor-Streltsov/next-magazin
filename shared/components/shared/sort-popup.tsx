@@ -25,7 +25,7 @@ export const SortPopup: React.FC<SortPopupProps> = ({ sortBy, className }) => {
   return (
     <button
       className={cn(
-        'inline-flex items-center gap-1 bg-gray-50 px-5 h-[52px] rounded-2xl cursor-pointer',
+        'inline-flex items-center gap-1 bg-gray-50 px-3 sm:px-5 h-10 sm:h-[52px] rounded-2xl cursor-pointer text-sm sm:text-base',
         className
       )}
       onClick={handleSortClick}

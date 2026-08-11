@@ -16,7 +16,7 @@ export const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
   return (
     <div
       className={cn(
-        'inline-flex flex-wrap gap-1 bg-gray-50 p-1 rounded-2xl',
+        'inline-flex gap-1 bg-gray-50 p-1 rounded-2xl shrink-0',
         className
       )}
     >
@@ -24,7 +24,7 @@ export const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
         <a
           href={`#${name}`}
           className={cn(
-            'flex items-center font-bold h-11 rounded-2xl px-5  cursor-pointer',
+            'flex items-center font-bold h-9 sm:h-11 rounded-2xl px-3 sm:px-5 cursor-pointer whitespace-nowrap text-sm sm:text-base',
             categoryActiveId === id &&
               'bg-white shadow-mg shadow-gray-200 text-primary'
           )}

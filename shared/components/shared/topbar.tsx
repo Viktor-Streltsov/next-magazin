@@ -23,9 +23,9 @@ export const TopBar: React.FC<TopBarProps> = ({
         className
       )}
     >
-      <Container className="flex flex-wrap gap-5 items-center p-1 justify-between">
-        <Categories items={categories} />
-        <SortPopup sortBy={sortBy} />
+      <Container className="flex flex-wrap gap-3 sm:gap-5 items-center p-1 justify-between">
+        <Categories items={categories} className="max-w-full overflow-x-auto scrollbar" />
+        <SortPopup sortBy={sortBy} className="shrink-0" />
       </Container>
     </div>
   );
